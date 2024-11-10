@@ -24,7 +24,7 @@ public class CorreoEstadoEntity {
     private String nombre;
     private String descripcion;
 
-    @OneToMany
+    @OneToMany(mappedBy = "correoEstado")
     private List<CorreoEnviadoEntity> correoEnviados;
 
 }

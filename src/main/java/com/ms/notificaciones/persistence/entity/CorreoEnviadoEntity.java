@@ -27,6 +27,9 @@ public class CorreoEnviadoEntity {
     private Integer idUsuario;
 
     @ManyToOne
+    private CorreoEstadoEntity correoEstado;
+
+    @ManyToOne
     private CorreoPlantillaEntity correoPlantilla;
 
 }
