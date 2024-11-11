@@ -16,6 +16,10 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class CorreoServiceImpl implements ICorreoService {
@@ -27,15 +31,10 @@ public class CorreoServiceImpl implements ICorreoService {
     private final CorreoUtil correoUtil;
 
     @Override
-    public RespuestaGenerica enviarCorreo(EnviarCorreoRequest request) throws MessagingException {
+    public Map<String, Object> enviarCorreo(EnviarCorreoRequest request) throws MessagingException {
 
         CorreoPlantillaDto correoPlantillaDto = correoPlantillaOutService.buscarPlantilla(request.getNombrePlantilla());
-        String cuerpo = correoUtil.reemplazarTexto(correoPlantillaDto.getCuerpo(), CorreoRegistroDto.builder()
-                .username(request.getUsername())
-                .enlace("www.google.com")
-                .enlaceAyuda("www.google.com")
-                .tipoNotificacion(correoPlantillaDto.getTipoNotificacion().getNombre())
-                .build());
+        String cuerpo = correoUtil.reemplazarTexto(correoPlantillaDto.getCuerpo(), request.getParametros());
 
         mailSenderService.enviarEmail(new String[]{request.getCorreo()}, correoPlantillaDto.getAsunto(), cuerpo);
 
@@ -46,7 +45,9 @@ public class CorreoServiceImpl implements ICorreoService {
                         .correoEstado(correoEstadoOutService.buscarPorId(EstadoCorreoEnum.INFORMATIVO.toValue()))
                 .build());
 
-        return RespuestaGenerica.ok(true, "¡Se ha enviado el correo electrónico exitosamente!");
+        Map<String, Object> response = new HashMap<>();
+        response.put("Correo enviado exitosamente.", request.getCorreo());
+        return response;
     }
 
 }

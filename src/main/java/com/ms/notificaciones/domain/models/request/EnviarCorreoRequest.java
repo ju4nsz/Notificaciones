@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashMap;
+
 @Getter
 @Setter
 public class EnviarCorreoRequest {
@@ -13,8 +15,8 @@ public class EnviarCorreoRequest {
     @NotNull(message = "La id del usuario no puede ser nula.")
     private Integer idUsuario;
 
-    @NotBlank(message = "El nombre de usuario no puede ser nulo.")
-    private String username;
+    @NotNull(message = "Los parámetros no pueden ser nulos.")
+    private LinkedHashMap<String, Object> parametros;
 
     @Email(message = "Debe ser un email válido")
     @NotBlank(message = "El correo no puede ser nulo.")

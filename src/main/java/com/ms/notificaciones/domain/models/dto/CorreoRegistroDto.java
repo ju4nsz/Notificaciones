@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 public class CorreoRegistroDto {
 
-    private String username;
+    private Object parametros;
     private String enlace;
     private String enlaceAyuda;
     private String tipoNotificacion;

@@ -1,11 +1,12 @@
 package com.ms.notificaciones.domain.service.in;
 
 import com.ms.notificaciones.domain.models.request.EnviarCorreoRequest;
-import com.ms.notificaciones.domain.models.response.RespuestaGenerica;
 import jakarta.mail.MessagingException;
+
+import java.util.Map;
 
 public interface ICorreoService {
 
-    RespuestaGenerica enviarCorreo(EnviarCorreoRequest request) throws MessagingException;
+    Map<String, Object> enviarCorreo(EnviarCorreoRequest request) throws MessagingException;
 
 }

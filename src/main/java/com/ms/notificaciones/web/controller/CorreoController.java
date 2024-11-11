@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notificaciones")
@@ -20,7 +22,7 @@ public class CorreoController {
     private final ICorreoService correoService;
 
     @PostMapping
-    public ResponseEntity<RespuestaGenerica> enviarCorreoElectronico(@RequestBody @Valid EnviarCorreoRequest request) throws MessagingException {
+    public ResponseEntity<Map<String, Object>> enviarCorreoElectronico(@RequestBody @Valid EnviarCorreoRequest request) throws MessagingException {
         return ResponseEntity.ok(correoService.enviarCorreo(request));
     }
 
